@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
 import Index from './index';
 
+/*var moment = require('moment');
+/!*moment().format();*!/
+console.log(moment());*/
 
 const routing = (
     <Router>

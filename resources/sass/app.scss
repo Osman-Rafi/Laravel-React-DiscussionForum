@@ -1,8 +1,27 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.counters {
+  margin-right: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+
+strong {
+  display: block;
+  font-size: 2em;
+  font-style: italic;
+}
+
+.vote, .answer {
+  width: 60px;
+  height: 60px;
+}
+
+.answer {
+  font-size: 12px;
+}
