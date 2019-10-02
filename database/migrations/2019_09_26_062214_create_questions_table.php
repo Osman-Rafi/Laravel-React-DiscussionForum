@@ -18,11 +18,11 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('body');
-            $table->unsignedBigInteger('views')->default(0);
-            $table->unsignedBigInteger('answers')->default(0);
-            $table->integer('votes')->default(0);
+            $table->unsignedBigInteger('views')->default(rand(4,15));
+            $table->unsignedBigInteger('answers')->default(rand(3,10));
+            $table->integer('votes')->default(rand(1,10));
             $table->unsignedInteger('best_answer_id')->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->default(rand(1,5));
             $table->timestamps();
 
             /*$table->foreign('id')->references('id')->on('users')->onDelete('cascade');*/

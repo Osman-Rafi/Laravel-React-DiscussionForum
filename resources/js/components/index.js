@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 
-/*including moment js*/
+// including moment js
+
 var moment = require('moment');
 moment().format();
 
@@ -13,18 +15,16 @@ class Index extends React.Component {
         questions: []
     };
 
-
     componentDidMount() {
         axios.get("http://localhost:8000/ajax/getData").then(question => {
             console.log("Data Fetched ...");
-            console.log(question.data);
+            /*console.log(question.data);*/
 
             this.setState({questions: question.data});
         }).catch(err => {
             console.log(err);
         });
     }
-
 
 
     /*catch all questions*/
@@ -38,11 +38,16 @@ class Index extends React.Component {
                             <strong>{question.votes} votes</strong>
                         </div>
 
-                        <div className="answer text-danger">
-                            {question.answers} answers
+
+                        <div
+                            className={"status " + (question.answers > 0 ? question.best_answer ? "answered-accepted" : "answered" : "unanswered")}>
+                            {question.answers}
+                            <span className="answer pl-1">answers</span>
                         </div>
+
+
                         <div className="view font-weight-bold">
-                            {question.views} views
+                            {question.views} <span className="view">views</span>
                         </div>
                     </div>
                     <div className="media-body">
@@ -56,10 +61,10 @@ class Index extends React.Component {
                         <hr/>
                     </div>
                 </div>
-            )
-                ;
+            );
         });
     }
+
 
     render() {
         return (
@@ -67,7 +72,16 @@ class Index extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header"><h5>Hello</h5>All Questions</div>
+                            <div className="card-header">
+                                <div className="d-flex align-items-center">
+                                    <h2>All Question</h2>
+                                    <div className="ml-auto">
+                                        <Link to="/create-question" className={"btn btn-outline-secondary"}>Ask
+                                            Question
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="card-body">
 
                                 {this.showQuestions()}
@@ -81,6 +95,7 @@ class Index extends React.Component {
 
         );
     }
+
 }
 
 

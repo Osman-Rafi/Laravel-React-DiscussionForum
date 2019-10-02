@@ -22,6 +22,25 @@ strong {
   height: 60px;
 }
 
-.answer {
-  font-size: 12px;
+
+.status {
+  &.unanswered {
+    border: none;
+  }
+
+  &.answered {
+    border: 1px solid $color-green;
+    color: $color-green;
+  }
+
+  &.answered-accepted {
+    background: $color-green;
+    color: $color-white;
+  }
+
+  .view {
+    margin-top: 10px;
+  }
+
+
 }

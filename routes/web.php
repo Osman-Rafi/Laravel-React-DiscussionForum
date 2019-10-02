@@ -29,6 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 Route::group(['prefix' => 'ajax'], function () {
     // all routes that don't need to go to react-router
     Route::get("/getData","QuestionsController@index");
+    Route::post("/storeData","QuestionsController@store");
 });
 
 

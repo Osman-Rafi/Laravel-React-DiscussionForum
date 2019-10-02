@@ -10662,7 +10662,21 @@ strong {
   height: 60px;
 }
 
-.answer {
-  font-size: 12px;
+.status.unanswered {
+  border: none;
+}
+
+.status.answered {
+  border: 1px solid #70AE6E;
+  color: #70AE6E;
+}
+
+.status.answered-accepted {
+  background: #70AE6E;
+  color: #E8E8E8;
+}
+
+.status .view {
+  margin-top: 10px;
 }
 

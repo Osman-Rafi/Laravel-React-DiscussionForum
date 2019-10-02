@@ -42,7 +42,17 @@ class QuestionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = new Question();
+
+        $question->title = $request->get('title');
+        $question->body = $request->get('body');
+        
+
+
+        $question->save();
+
+        return $question;
+
     }
 
     /**
