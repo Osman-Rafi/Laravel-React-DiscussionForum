@@ -20,10 +20,10 @@ class ShowQuestion extends React.Component {
         /*console.log(this.props.match.params.id);*/
         axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
             console.log("Show Data Fetched ...");
-            /* console.log(question.data.question);*/
+            console.log(question.data);
 
             this.setState({
-                question: question.data.question,
+                question: question.data,
                 answers: question.data.answers
 
             });
@@ -35,24 +35,38 @@ class ShowQuestion extends React.Component {
     // fetch all answers
 
     showAnswers = () => {
-        return this.state.answers.map(answers => {
+        return this.state.question.answers.map((question, index) => {
+            console.log(question.user.name)
             return (
-                <div className="card mt-4" key={answers.id}>
+                <div className="card mt-4" key={question.id}>
                     <div className="card-header">
                         Answers
                     </div>
                     <div className="card-body">
-                        <h3 className="card-title">{answers.title}</h3>
+                        <h3 className="card-title">{question.title}</h3>
                         <span>
                             <p className=" text-muted px-1">
                                 Answered <span
-                                className="font-weight-bold text-body">{moment(answers.created_at).fromNow()}</span>
+                                className="font-weight-bold text-body">{moment(question.created_at).fromNow()}</span>
                             </p>
                         </span>
                         <p className="card-text">
-                            {answers.body}
+                            {question.body}
                         </p>
 
+                    </div>
+                    <div className="d-flex justify-content-end">
+                        <div className="d-flex flex-column ">
+                            <div className="">
+                                <span className="text-muted">Answered <span className="font-weight-bold text-dark">{moment(question.created_at).fromNow()}</span></span>
+                            </div>
+                            <div className="">
+                                <img src="/images/avatar-icon" alt=""/>
+                                <span className="text-muted"> Asked By
+                                    <span className={"font-weight-bold text-dark ml-1"}>{question.user.name}</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );
@@ -60,14 +74,17 @@ class ShowQuestion extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+
+        //console.log(this.state.answers[0]);
+        //const { user } = this.state.answers[0];
+        //console.log(user);
         return (
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header">
-                                <div className="d-flex align-items-center">
+                                <div className="d-flex">
                                     <h2>Question By Jhon Doe</h2>
                                     <div className="ml-auto">
                                         <Link to="/" className={"btn btn-outline-secondary"}>
@@ -83,7 +100,7 @@ class ShowQuestion extends React.Component {
 
                         <div className="card mt-4">
                             <div className="card-header">
-                                Featured
+                                Question
                             </div>
                             <div className="card-body">
                                 <h3 className="card-title">{this.state.question.title}</h3>
@@ -99,14 +116,18 @@ class ShowQuestion extends React.Component {
                                     {this.state.question.body}
                                 </p>
 
+
                             </div>
                         </div>
                     </div>
 
                     <div className="col-md-10 mb-5">
+
                         {/*Show all Answers*/}
 
-                        {this.showAnswers()}
+                        {this.state.question.answers ?
+                            this.showAnswers() : ""
+                        }
                     </div>
 
                 </div>

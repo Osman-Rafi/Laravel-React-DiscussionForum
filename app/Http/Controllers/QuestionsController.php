@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use App\Answer;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -66,16 +67,25 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-        $question['question'] = Question::find($id);
+       /* $question['question'] = Question::find($id);
 
         //fetch selected question id
         $question_id = Question::find($id)->id;
 
-        // fetch all aswers where answer table question_id == question_id
-        $question['answers']= Answer::where('question_id',$question_id)->get();
+        // fetch all answers where answer table question_id == question_id
+        $question['answers'] = Answer::where('question_id', $question_id)->get();
+
+        //fetch user data who answered the question
+        $question['user'] = User::where('id',$question['answers']->user_id)->get();
 
 
-        return $question;
+        return $question;*/
+
+
+
+       $question = Question::with('answers.user')->where('id', $id)->first();
+
+       return $question;
 
 
     }

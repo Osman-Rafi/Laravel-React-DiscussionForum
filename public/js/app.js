@@ -88466,23 +88466,43 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "showAnswers", function () {
-      return _this.state.answers.map(function (answers) {
+      return _this.state.question.answers.map(function (question, index) {
+        console.log(question.user.name);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card mt-4",
-          key: answers.id
+          key: question.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-header"
         }, "Answers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-body"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "card-title"
-        }, answers.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, question.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: " text-muted px-1"
         }, "Answered ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "font-weight-bold text-body"
-        }, moment(answers.created_at).fromNow()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, moment(question.created_at).fromNow()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "card-text"
-        }, answers.body)));
+        }, question.body)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex justify-content-end"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex flex-column "
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: ""
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "text-muted"
+        }, "Answered ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "font-weight-bold text-dark"
+        }, moment(question.created_at).fromNow()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: ""
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "/images/avatar-icon",
+          alt: ""
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "text-muted"
+        }, " Asked By", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "font-weight-bold text-dark ml-1"
+        }, question.user.name))))));
       });
     });
 
@@ -88497,10 +88517,10 @@ function (_React$Component) {
       /*console.log(this.props.match.params.id);*/
       axios__WEBPACK_IMPORTED_MODULE_2__["get"]("http://localhost:8000/ajax/showData/".concat(this.props.match.params.id)).then(function (question) {
         console.log("Show Data Fetched ...");
-        /* console.log(question.data.question);*/
+        console.log(question.data);
 
         _this2.setState({
-          question: question.data.question,
+          question: question.data,
           answers: question.data.answers
         });
       })["catch"](function (err) {
@@ -88511,7 +88531,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.state);
+      //console.log(this.state.answers[0]);
+      //const { user } = this.state.answers[0];
+      //console.log(user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -88523,7 +88545,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "d-flex align-items-center"
+        className: "d-flex"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Question By Jhon Doe"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "ml-auto"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
@@ -88535,7 +88557,7 @@ function (_React$Component) {
         className: "card mt-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, "Featured"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Question"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "card-title"
@@ -88551,7 +88573,7 @@ function (_React$Component) {
         className: "card-text"
       }, this.state.question.body)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-10 mb-5"
-      }, this.showAnswers())));
+      }, this.state.question.answers ? this.showAnswers() : "")));
     }
   }]);
 
