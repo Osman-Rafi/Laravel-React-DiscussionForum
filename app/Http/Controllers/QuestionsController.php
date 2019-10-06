@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuestionsController extends Controller
 {
@@ -19,6 +21,8 @@ class QuestionsController extends Controller
         /*return view('questions.index', compact('questions'));*/
 
         $questions = Question::with("user")->get();
+        //$questions['user'] = Question::with("user")->get();
+        //$questions['answers'] = Question::with("answers")->get();
         return $questions;
 
 
@@ -46,7 +50,6 @@ class QuestionsController extends Controller
 
         $question->title = $request->get('title');
         $question->body = $request->get('body');
-        
 
 
         $question->save();
@@ -63,7 +66,18 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-        //
+        $question['question'] = Question::find($id);
+
+        //fetch selected question id
+        $question_id = Question::find($id)->id;
+
+        // fetch all aswers where answer table question_id == question_id
+        $question['answers']= Answer::where('question_id',$question_id)->get();
+
+
+        return $question;
+
+
     }
 
     /**
@@ -74,7 +88,9 @@ class QuestionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::find($id);
+
+        return $question;
     }
 
     /**
@@ -86,7 +102,13 @@ class QuestionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $question = Question::find($id);
+
+        $question->title = $request->get('title');
+        $question->body = $request->get('body');
+
+
+        $question->save();
     }
 
     /**
@@ -97,6 +119,9 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::find($id);
+        $question->delete();
+
+        return "success !!";
     }
 }

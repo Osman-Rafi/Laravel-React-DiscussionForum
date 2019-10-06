@@ -1,15 +1,31 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import * as axios from "axios";
-import { Redirect } from 'react-router';
 
-class CreateQuestion extends React.Component {
+
+class EditQuestion extends React.Component {
 
     state = {
         title: '',
         body: '',
         redirect: false
+    }
+
+    componentDidMount() {
+        /*console.log(this.props.match.params.id);*/
+        axios.get(`http://localhost:8000/ajax/editData/${this.props.match.params.id}`).then(question => {
+            console.log("Edit Data Fetched ...");
+
+            /*console.log(question.data);*/
+
+            this.setState({
+                title: question.data.title,
+                body: question.data.body
+            });
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     handleNameChange = (e) => {
@@ -36,7 +52,7 @@ class CreateQuestion extends React.Component {
 
         };
 
-        axios.post('http://localhost:8000/ajax/storeData', newObj, {
+        axios.post(`http://localhost:8000/ajax/updateData/${this.props.match.params.id}`, newObj, {
                 headers: {
                     'X-CSRF-TOKEN': csrf_token
                 }
@@ -44,10 +60,10 @@ class CreateQuestion extends React.Component {
         ).then(response => {
             console.log(response);
             this.setState({redirect: true});
-            /*this.renderRedirect();*/
         }).then(error => {
             console.log(error);
         });
+
 
 
     }
@@ -67,7 +83,7 @@ class CreateQuestion extends React.Component {
                         <div className="card">
                             <div className="card-header">
                                 <div className="d-flex align-items-center">
-                                    <h2>Ask Question</h2>
+                                    <h2>Edit This Question</h2>
                                     <div className="ml-auto">
                                         <Link to="/" className={"btn btn-outline-secondary"}>
                                             Back to All Questions
@@ -95,8 +111,8 @@ class CreateQuestion extends React.Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <button type={"submit"} className={"btn btn-outline-primary btn-lg"}>Ask
-                                            This Question
+                                        <button type={"submit"} className={"btn btn-outline-primary btn-lg"}>
+                                            Update Question
                                         </button>
                                     </div>
 
@@ -111,4 +127,4 @@ class CreateQuestion extends React.Component {
     }
 }
 
-export default CreateQuestion;
+export default EditQuestion;

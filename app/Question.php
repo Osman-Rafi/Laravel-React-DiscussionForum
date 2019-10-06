@@ -26,8 +26,8 @@ class Question extends Model
         return route('question.show', $this->id);
     }
 
-   /* public function getCreatedDate()
+    public function answers()
     {
-        return $this->created_at->diffForHumans();
-    }*/
+        return $this->hasmany(Answer::class);
+    }
 }
