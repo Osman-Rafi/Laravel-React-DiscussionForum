@@ -88474,16 +88474,35 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-header"
         }, "Answers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "card-body"
+          className: "media px-3"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex flex-column answer-vote align-self-start pr-4"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          className: "upvote"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-caret-up fa-3x",
+          style: {
+            textDecoration: 'none'
+          }
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "votes-count"
+        }, "1230"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          className: "downvote downvoted"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-caret-down fa-3x"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          className: "favourite favourited accepted-ans py-2"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "far fa-check-circle fa-2x"
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "media-body"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "card-title"
-        }, question.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: " text-muted px-1"
-        }, "Answered ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "font-weight-bold text-body"
-        }, moment(question.created_at).fromNow()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, question.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "card-text"
-        }, question.body)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, question.body)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "d-flex justify-content-end"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "d-flex flex-column "
@@ -88492,7 +88511,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "text-muted"
         }, "Answered ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "font-weight-bold text-dark"
+          className: "font-weight-bold text-dark px-2"
         }, moment(question.created_at).fromNow()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -88500,8 +88519,8 @@ function (_React$Component) {
           alt: ""
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "text-muted"
-        }, " Asked By", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "font-weight-bold text-dark ml-1"
+        }, " Answered By", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "font-weight-bold text-dark ml-1 px-2"
         }, question.user.name))))));
       });
     });
@@ -88531,9 +88550,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      //console.log(this.state.answers[0]);
-      //const { user } = this.state.answers[0];
-      //console.log(user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -88569,9 +88585,34 @@ function (_React$Component) {
         className: "pl-3"
       }, "View ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "font-weight-bold"
-      }, this.state.question.views), " times"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "card-text"
-      }, this.state.question.body)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.question.views), " times"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "media"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "d-flex flex-column vote-controls align-self-start pr-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        className: "upvote"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-caret-up fa-3x",
+        style: {
+          textDecoration: 'none'
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "votes-count"
+      }, "1230"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        className: "downvote downvoted"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-caret-down fa-3x"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        className: "favourite favourited"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-star fa-2x"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "favourites-count pl-2 pt-1"
+      }, "89")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "media-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: ""
+      }, this.state.question.body)))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-10 mb-5"
       }, this.state.question.answers ? this.showAnswers() : "")));
     }
@@ -88700,7 +88741,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "d-flex align-items-center"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          to: "",
+          to: "/show-question/".concat(question.id),
           className: "mt-0"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, question.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "ml-auto"

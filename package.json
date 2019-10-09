@@ -32,10 +32,12 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-stage-0": "^7.0.0",
         "@babel/register": "^7.0.0",
+        "@fortawesome/fontawesome-free": "^5.11.2",
         "babel-cli": "^6.26.0",
         "babel-loader": "^8.0.1",
         "babel-minify-webpack-plugin": "^0.2.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
+        "font-awesome": "^4.7.0",
         "moment": "^2.24.0",
         "react-router-dom": "^5.1.2"
     },

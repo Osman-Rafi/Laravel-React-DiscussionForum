@@ -88,7 +88,7 @@ class Index extends React.Component {
                     </div>
                     <div className="media-body">
                         <div className="d-flex align-items-center">
-                            <Link to={""} className={"mt-0"}>
+                            <Link to={`/show-question/${question.id}`} className={"mt-0"}>
                                 <h3>{question.title}</h3>
                             </Link>
                             <div className="ml-auto">
