@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import * as axios from "axios";
 import {Link} from "react-router-dom";
+import Redirect from "react-router-dom/es/Redirect";
 
 // including moment js
 
@@ -12,21 +13,26 @@ class ShowQuestion extends React.Component {
 
     state = {
         question: [],
-        answers: []
+        question_id: '',
+        answers: [],
+        answer: '',
+        redirect: false
 
     }
 
     componentDidMount() {
         /*console.log(this.props.match.params.id);*/
         axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
-            console.log("Show Data Fetched ...");
-            console.log(question.data);
+            /*console.log("Show Data Fetched ...");
+            console.log(question.data);*/
 
             this.setState({
                 question: question.data,
+                question_id: question.data.id,
                 answers: question.data.answers
 
             });
+            /*console.log(this.state);*/
         }).catch(err => {
             console.log(err);
         });
@@ -36,7 +42,7 @@ class ShowQuestion extends React.Component {
 
     showAnswers = () => {
         return this.state.question.answers.map((question, index) => {
-            console.log(question.user.name)
+            /* console.log(question.user.name)*/
             return (
                 <div className="card mt-4" key={question.id}>
                     <div className="card-header">
@@ -47,14 +53,17 @@ class ShowQuestion extends React.Component {
                     <div className="media px-3">
 
                         <div className="d-flex flex-column answer-vote align-self-start pr-4">
-                            <Link className={"upvote"}>
+                            <Link className={"upvote"} to={""}>
                                 <i className={"fas fa-caret-up fa-3x"} style={{textDecoration: 'none'}}></i>
                             </Link>
+
                             <span className="votes-count">1230</span>
-                            <Link className={"downvote downvoted"}>
+
+                            <Link className={"downvote downvoted"} to={""}>
                                 <i className={"fas fa-caret-down fa-3x"}></i>
                             </Link>
-                            <Link className={"favourite favourited accepted-ans py-2"}>
+
+                            <Link className={"favourite favourited accepted-ans py-2"} to={""}>
                                 <i className={"far fa-check-circle fa-2x"}></i>
                             </Link>
 
@@ -71,8 +80,6 @@ class ShowQuestion extends React.Component {
                             </div>
                         </div>
                     </div>
-
-
 
 
                     <div className="d-flex justify-content-end">
@@ -94,7 +101,52 @@ class ShowQuestion extends React.Component {
         })
     }
 
+    handleChange = (e) => {
+        this.setState({
+            answer: e.target.value
+        });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        let ans = {
+            answer: this.state.answer,
+            question_id: this.state.question_id
+        }
+
+        console.log(ans);
+        axios.post('http://localhost:8000/ajax/storeAnswer', ans, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(response => {
+            console.log(response.data);
+            axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+                console.log("Show Data Fetched ...");
+                console.log(question.data);
+
+                this.setState({
+                    question: question.data,
+                    answers: question.data.answers,
+                    answer: ''
+
+                })
+                ;
+            }).catch(err => {
+                console.log(err);
+            });
+
+
+        }).catch(error => {
+            console.log(error);
+        })
+
+    };
+
     render() {
+        const redirectToReferrer = this.state.redirect;
+
 
         return (
             <div className="container">
@@ -137,16 +189,20 @@ class ShowQuestion extends React.Component {
                                 <div className="media">
 
                                     <div className="d-flex flex-column vote-controls align-self-start pr-4">
-                                        <Link className={"upvote"}>
+                                        <Link className={"upvote"} to={""}>
                                             <i className={"fas fa-caret-up fa-3x"} style={{textDecoration: 'none'}}></i>
                                         </Link>
+
                                         <span className="votes-count">1230</span>
-                                        <Link className={"downvote downvoted"}>
+
+                                        <Link className={"downvote downvoted"} to={""}>
                                             <i className={"fas fa-caret-down fa-3x"}></i>
                                         </Link>
-                                        <Link className={"favourite favourited"}>
+
+                                        <Link className={"favourite favourited"} to={""}>
                                             <i className={"fas fa-star fa-2x"}></i>
                                         </Link>
+
                                         <span className="favourites-count pl-2 pt-1">89</span>
                                     </div>
 
@@ -169,6 +225,45 @@ class ShowQuestion extends React.Component {
                         {this.state.question.answers ?
                             this.showAnswers() : ""
                         }
+                    </div>
+
+                    <div className="col-md-10 mb-5">
+
+                        {/*give answer*/}
+
+                        <div className="card">
+
+                            <div className="card-header">
+                                <div className="d-flex align-items-center">
+                                    <h2>Answer This Question</h2>
+
+                                </div>
+                            </div>
+
+                            <div className="card-body">
+
+                                <form onSubmit={this.handleSubmit}>
+                                    <input type="hidden" name={"_token"} value={csrf_token}/>
+
+
+                                    <div className="form-group">
+                                        <label htmlFor="question-body">Explain Your Question :</label>
+                                        <textarea name={"body"} id={"answer-body"} cols={40} rows={10}
+                                                  className={"form-control"} onChange={this.handleChange}
+                                                  value={this.state.answer}></textarea>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <button type={"submit"} className={"btn btn-outline-primary btn-lg"}>
+                                            Update Question
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

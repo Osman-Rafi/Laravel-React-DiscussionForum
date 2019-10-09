@@ -82211,6 +82211,76 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-router-dom/es/Redirect.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-router-dom/es/Redirect.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _warnAboutDeprecatedESMImport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./warnAboutDeprecatedESMImport.js */ "./node_modules/react-router-dom/es/warnAboutDeprecatedESMImport.js");
+/* harmony import */ var _esm_react_router_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../esm/react-router-dom.js */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+Object(_warnAboutDeprecatedESMImport_js__WEBPACK_IMPORTED_MODULE_0__["default"])("Redirect");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_esm_react_router_dom_js__WEBPACK_IMPORTED_MODULE_1__["Redirect"]);
+
+
+/***/ }),
+
+/***/ "./node_modules/react-router-dom/es/warnAboutDeprecatedESMImport.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-router-dom/es/warnAboutDeprecatedESMImport.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+var printWarning = function() {};
+
+if (true) {
+  printWarning = function(format, subs) {
+    var index = 0;
+    var message =
+      "Warning: " +
+      (subs.length > 0
+        ? format.replace(/%s/g, function() {
+            return subs[index++];
+          })
+        : format);
+
+    if (typeof console !== "undefined") {
+      console.error(message);
+    }
+
+    try {
+      // --- Welcome to debugging React Router ---
+      // This error was thrown as a convenience so that you can use the
+      // stack trace to find the callsite that triggered this warning.
+      throw new Error(message);
+    } catch (e) {}
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (function(member) {
+  printWarning(
+    'Please use `import { %s } from "react-router-dom"` instead of `import %s from "react-router-dom/es/%s"`. ' +
+      "Support for the latter will be removed in the next major release.",
+    [member, member]
+  );
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/react-router-dom/esm/react-router-dom.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
@@ -88413,6 +88483,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom_es_Redirect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom/es/Redirect */ "./node_modules/react-router-dom/es/Redirect.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -88432,6 +88503,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -88462,12 +88534,15 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       question: [],
-      answers: []
+      question_id: '',
+      answers: [],
+      answer: '',
+      redirect: false
     });
 
     _defineProperty(_assertThisInitialized(_this), "showAnswers", function () {
       return _this.state.question.answers.map(function (question, index) {
-        console.log(question.user.name);
+        /* console.log(question.user.name)*/
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card mt-4",
           key: question.id
@@ -88478,7 +88553,8 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "d-flex flex-column answer-vote align-self-start pr-4"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-          className: "upvote"
+          className: "upvote",
+          to: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-caret-up fa-3x",
           style: {
@@ -88487,11 +88563,13 @@ function (_React$Component) {
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "votes-count"
         }, "1230"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-          className: "downvote downvoted"
+          className: "downvote downvoted",
+          to: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-caret-down fa-3x"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-          className: "favourite favourited accepted-ans py-2"
+          className: "favourite favourited accepted-ans py-2",
+          to: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "far fa-check-circle fa-2x"
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -88525,6 +88603,42 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (e) {
+      _this.setState({
+        answer: e.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (e) {
+      e.preventDefault();
+      var ans = {
+        answer: _this.state.answer,
+        question_id: _this.state.question_id
+      };
+      console.log(ans);
+      axios__WEBPACK_IMPORTED_MODULE_2__["post"]('http://localhost:8000/ajax/storeAnswer', ans, {
+        headers: {
+          'X-CSRF-TOKEN': csrf_token
+        }
+      }).then(function (response) {
+        console.log(response.data);
+        axios__WEBPACK_IMPORTED_MODULE_2__["get"]("http://localhost:8000/ajax/showData/".concat(_this.props.match.params.id)).then(function (question) {
+          console.log("Show Data Fetched ...");
+          console.log(question.data);
+
+          _this.setState({
+            question: question.data,
+            answers: question.data.answers,
+            answer: ''
+          });
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
+
     return _this;
   }
 
@@ -88535,13 +88649,15 @@ function (_React$Component) {
 
       /*console.log(this.props.match.params.id);*/
       axios__WEBPACK_IMPORTED_MODULE_2__["get"]("http://localhost:8000/ajax/showData/".concat(this.props.match.params.id)).then(function (question) {
-        console.log("Show Data Fetched ...");
-        console.log(question.data);
-
+        /*console.log("Show Data Fetched ...");
+        console.log(question.data);*/
         _this2.setState({
           question: question.data,
+          question_id: question.data.id,
           answers: question.data.answers
         });
+        /*console.log(this.state);*/
+
       })["catch"](function (err) {
         console.log(err);
       });
@@ -88550,6 +88666,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var redirectToReferrer = this.state.redirect;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -88590,7 +88707,8 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-flex flex-column vote-controls align-self-start pr-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        className: "upvote"
+        className: "upvote",
+        to: ""
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-caret-up fa-3x",
         style: {
@@ -88599,11 +88717,13 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "votes-count"
       }, "1230"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        className: "downvote downvoted"
+        className: "downvote downvoted",
+        to: ""
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-caret-down fa-3x"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        className: "favourite favourited"
+        className: "favourite favourited",
+        to: ""
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-star fa-2x"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -88614,7 +88734,40 @@ function (_React$Component) {
         className: ""
       }, this.state.question.body)))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-10 mb-5"
-      }, this.state.question.answers ? this.showAnswers() : "")));
+      }, this.state.question.answers ? this.showAnswers() : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-10 mb-5"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "d-flex align-items-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Answer This Question"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "hidden",
+        name: "_token",
+        value: csrf_token
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "question-body"
+      }, "Explain Your Question :"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        name: "body",
+        id: "answer-body",
+        cols: 40,
+        rows: 10,
+        className: "form-control",
+        onChange: this.handleChange,
+        value: this.state.answer
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "btn btn-outline-primary btn-lg"
+      }, "Update Question"))))))));
     }
   }]);
 

@@ -34,32 +34,32 @@ class Index extends React.Component {
 
     /*delete quetion*/
 
-     handleDelete = (e) => {
+    handleDelete = (e) => {
 
-         /*e.preventDefault();*/
-         /*console.log(e);*/
+        /*e.preventDefault();*/
+        /*console.log(e);*/
 
-         axios.delete(`http://localhost:8000/ajax/deleteData/${e}`, {
-             headers: {
-                 'X-CSRF-TOKEN': csrf_token
-             }
-         }).then(question => {
-             console.log("Edit Data Fetched ...");
+        axios.delete(`http://localhost:8000/ajax/deleteData/${e}`, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(question => {
+            console.log("Edit Data Fetched ...");
 
-             console.log(question.data);
-             axios.get("http://localhost:8000/ajax/getData").then(question => {
-                 console.log("Data Fetched ...");
-                 /*console.log(question.data);*/
+            console.log(question.data);
+            axios.get("http://localhost:8000/ajax/getData").then(question => {
+                console.log("Data Fetched ...");
+                /*console.log(question.data);*/
 
-                 this.setState({questions: question.data});
-             }).catch(err => {
-                 console.log(err);
-             });
+                this.setState({questions: question.data});
+            }).catch(err => {
+                console.log(err);
+            });
 
-         }).catch(err => {
-             console.log(err);
-         });
-     }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
 
 
     /*catch all questions*/
@@ -123,33 +123,33 @@ class Index extends React.Component {
 
     render() {
 
-          return (
-              <div className="container">
-                  <div className="row justify-content-center">
-                      <div className="col-md-12">
-                          <div className="card">
-                              <div className="card-header">
-                                  <div className="d-flex align-items-center">
-                                      <h2>All Question</h2>
-                                      <div className="ml-auto">
-                                          <Link to="/create-question" className={"btn btn-outline-secondary"}>Ask
-                                              Question
-                                          </Link>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="card-body">
+        return (
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <div className="d-flex align-items-center">
+                                    <h2>All Question</h2>
+                                    <div className="ml-auto">
+                                        <Link to="/create-question" className={"btn btn-outline-secondary"}>Ask
+                                            Question
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-body">
 
-                                  {this.showQuestions()}
+                                {this.showQuestions()}
 
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-          );
+        );
     }
 
 }
