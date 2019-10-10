@@ -40,6 +40,7 @@ Route::group(['prefix' => 'ajax'], function () {
 
     /*Answer*/
     Route::post('/storeAnswer', "AnswersController@store");
+    Route::post('/marked-as-best-answer', 'QuestionsController@best_answer');
 
 });
 

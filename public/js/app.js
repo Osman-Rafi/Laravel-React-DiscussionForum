@@ -88540,6 +88540,48 @@ function (_React$Component) {
       redirect: false
     });
 
+    _defineProperty(_assertThisInitialized(_this), "reloadPage", function () {
+      axios__WEBPACK_IMPORTED_MODULE_2__["get"]("http://localhost:8000/ajax/showData/".concat(_this.props.match.params.id)).then(function (question) {
+        _this.setState({
+          question: question.data,
+          question_id: question.data.id,
+          answers: question.data.answers
+        });
+        /*console.log(this.state);*/
+
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "selectBestAnswer", function (e, id) {
+      var ans = {
+        question_id: _this.props.match.params.id,
+        ans_id: id
+      };
+      /* console.log(ans);*/
+
+      axios__WEBPACK_IMPORTED_MODULE_2__["post"]("http://localhost:8000/ajax/marked-as-best-answer", ans, {
+        headers: {
+          'X-CSRF-TOKEN': csrf_token
+        }
+      }).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_2__["get"]("http://localhost:8000/ajax/showData/".concat(_this.props.match.params.id)).then(function (question) {
+          /* console.log("Show Data Fetched ...");
+           console.log(question.data);*/
+          _this.setState({
+            question: question.data,
+            answers: question.data.answers,
+            answer: ''
+          });
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "showAnswers", function () {
       return _this.state.question.answers.map(function (question, index) {
         /* console.log(question.user.name)*/
@@ -88561,15 +88603,18 @@ function (_React$Component) {
             textDecoration: 'none'
           }
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "votes-count"
-        }, "1230"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          className: "ans-votes-count pl-1"
+        }, question.votes_count), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           className: "downvote downvoted",
           to: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-caret-down fa-3x"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-          className: "favourite favourited accepted-ans py-2",
-          to: ""
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "py-2 btn btn-link " + (question.id === _this.state.question.best_answer_id ? "accepted-ans" : "not-accepted-ans"),
+          to: "",
+          onClick: function onClick(e) {
+            return _this.selectBestAnswer(e, question.id);
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "far fa-check-circle fa-2x"
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -88615,17 +88660,17 @@ function (_React$Component) {
         answer: _this.state.answer,
         question_id: _this.state.question_id
       };
-      console.log(ans);
+      /*console.log(ans);*/
+
       axios__WEBPACK_IMPORTED_MODULE_2__["post"]('http://localhost:8000/ajax/storeAnswer', ans, {
         headers: {
           'X-CSRF-TOKEN': csrf_token
         }
       }).then(function (response) {
-        console.log(response.data);
+        /*console.log(response.data);*/
         axios__WEBPACK_IMPORTED_MODULE_2__["get"]("http://localhost:8000/ajax/showData/".concat(_this.props.match.params.id)).then(function (question) {
-          console.log("Show Data Fetched ...");
-          console.log(question.data);
-
+          /*console.log("Show Data Fetched ...");
+          console.log(question.data);*/
           _this.setState({
             question: question.data,
             answers: question.data.answers,
@@ -88661,8 +88706,7 @@ function (_React$Component) {
       })["catch"](function (err) {
         console.log(err);
       });
-    } // fetch all answers
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -88716,7 +88760,7 @@ function (_React$Component) {
         }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "votes-count"
-      }, "1230"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+      }, this.state.question.votes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
         className: "downvote downvoted",
         to: ""
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -88855,12 +88899,12 @@ function (_React$Component) {
           'X-CSRF-TOKEN': csrf_token
         }
       }).then(function (question) {
-        console.log("Edit Data Fetched ...");
-        console.log(question.data);
+        /*console.log("Edit Data Fetched ...");
+          console.log(question.data);*/
         axios__WEBPACK_IMPORTED_MODULE_3__["get"]("http://localhost:8000/ajax/getData").then(function (question) {
-          console.log("Data Fetched ...");
-          /*console.log(question.data);*/
+          /*console.log("Data Fetched ...");*/
 
+          /*console.log(question.data);*/
           _this.setState({
             questions: question.data
           });
@@ -88930,15 +88974,14 @@ function (_React$Component) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_3__["get"]("http://localhost:8000/ajax/getData").then(function (question) {
-        console.log("Data Fetched ...");
-        console.log(question.data);
-
+        /*console.log("Data Fetched ...");
+        console.log(question.data);*/
         _this2.setState({
           questions: question.data,
           answers: question.data
         });
+        /*console.log(this.state);*/
 
-        console.log(_this2.state);
       })["catch"](function (err) {
         console.log(err);
       });

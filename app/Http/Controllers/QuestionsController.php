@@ -17,16 +17,8 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-
-        /*$questions = Question::latest()->paginate(5);*/
-        /*return view('questions.index', compact('questions'));*/
-
         $questions = Question::with("user")->get();
-        //$questions['user'] = Question::with("user")->get();
-        //$questions['answers'] = Question::with("answers")->get();
         return $questions;
-
-
     }
 
     /**
@@ -67,25 +59,10 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-       /* $question['question'] = Question::find($id);
 
-        //fetch selected question id
-        $question_id = Question::find($id)->id;
+        $question = Question::with('answers.user')->where('id', $id)->first();
 
-        // fetch all answers where answer table question_id == question_id
-        $question['answers'] = Answer::where('question_id', $question_id)->get();
-
-        //fetch user data who answered the question
-        $question['user'] = User::where('id',$question['answers']->user_id)->get();
-
-
-        return $question;*/
-
-
-
-       $question = Question::with('answers.user')->where('id', $id)->first();
-
-       return $question;
+        return $question;
 
 
     }
@@ -133,5 +110,16 @@ class QuestionsController extends Controller
         $question->delete();
 
         return "success !!";
+    }
+
+    public function best_answer(Request $request)
+    {
+
+        $question = Question::find($request->question_id);
+        $question->best_answer_id = $request->ans_id;
+
+        $question->save();
+        return $question->best_answer_id;
+
     }
 }

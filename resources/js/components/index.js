@@ -19,14 +19,14 @@ class Index extends React.Component {
 
     componentDidMount() {
         axios.get("http://localhost:8000/ajax/getData").then(question => {
-            console.log("Data Fetched ...");
-            console.log(question.data);
+            /*console.log("Data Fetched ...");
+            console.log(question.data);*/
 
             this.setState({
                 questions: question.data,
                 answers: question.data
             });
-            console.log(this.state);
+            /*console.log(this.state);*/
         }).catch(err => {
             console.log(err);
         });
@@ -44,11 +44,11 @@ class Index extends React.Component {
                 'X-CSRF-TOKEN': csrf_token
             }
         }).then(question => {
-            console.log("Edit Data Fetched ...");
+            /*console.log("Edit Data Fetched ...");
 
-            console.log(question.data);
+            console.log(question.data);*/
             axios.get("http://localhost:8000/ajax/getData").then(question => {
-                console.log("Data Fetched ...");
+                /*console.log("Data Fetched ...");*/
                 /*console.log(question.data);*/
 
                 this.setState({questions: question.data});

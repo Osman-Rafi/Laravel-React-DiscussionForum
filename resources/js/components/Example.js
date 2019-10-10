@@ -8,11 +8,9 @@ import ShowQuestion from './ShowQuestion';
 import DeleteQuestion from './DeleteQuestion'
 
 
-
-
 const routing = (
     <Router>
-        <Route exact path="/" component={Index} />
+        <Route exact path="/" component={Index}/>
         <Route path="/create-question" component={CreateQuestion}/>
         <Route exact path="/show-question/:id" component={ShowQuestion}/>
         <Route exact path="/edit-question/:id" component={EditQuestion}/>

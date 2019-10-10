@@ -16606,3 +16606,17 @@ a:hover {
   color: green;
 }
 
+.ans-votes-count {
+  font-size: 18px;
+}
+
+.accepted-ans,
+.accepted-ans:hover {
+  color: #157F1F;
+}
+
+.not-accepted-ans,
+.not-accepted-ans:hover {
+  color: gainsboro;
+}
+

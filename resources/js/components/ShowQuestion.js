@@ -38,6 +38,56 @@ class ShowQuestion extends React.Component {
         });
     }
 
+    reloadPage = () => {
+        axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+
+            this.setState({
+                question: question.data,
+                question_id: question.data.id,
+                answers: question.data.answers
+
+            });
+            /*console.log(this.state);*/
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    //select best answer
+
+    selectBestAnswer = (e, id) => {
+
+        let ans = {
+            question_id: this.props.match.params.id,
+            ans_id: id
+        };
+        /* console.log(ans);*/
+
+        axios.post("http://localhost:8000/ajax/marked-as-best-answer", ans, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(response => {
+            axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+               /* console.log("Show Data Fetched ...");
+                console.log(question.data);*/
+
+                this.setState({
+                    question: question.data,
+                    answers: question.data.answers,
+                    answer: ''
+
+                })
+                ;
+            }).catch(err => {
+                console.log(err);
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+
+    }
+
     // fetch all answers
 
     showAnswers = () => {
@@ -57,15 +107,19 @@ class ShowQuestion extends React.Component {
                                 <i className={"fas fa-caret-up fa-3x"} style={{textDecoration: 'none'}}></i>
                             </Link>
 
-                            <span className="votes-count">1230</span>
+                            <span className="ans-votes-count pl-1">{question.votes_count}</span>
 
                             <Link className={"downvote downvoted"} to={""}>
                                 <i className={"fas fa-caret-down fa-3x"}></i>
                             </Link>
 
-                            <Link className={"favourite favourited accepted-ans py-2"} to={""}>
+                            <button
+                                className={"py-2 btn btn-link " + (question.id === this.state.question.best_answer_id ? "accepted-ans" : "not-accepted-ans")}
+                                to={""}
+                                onClick={(e) => this.selectBestAnswer(e, question.id)}>
                                 <i className={"far fa-check-circle fa-2x"}></i>
-                            </Link>
+                            </button>
+
 
                         </div>
 
@@ -115,16 +169,16 @@ class ShowQuestion extends React.Component {
             question_id: this.state.question_id
         }
 
-        console.log(ans);
+        /*console.log(ans);*/
         axios.post('http://localhost:8000/ajax/storeAnswer', ans, {
             headers: {
                 'X-CSRF-TOKEN': csrf_token
             }
         }).then(response => {
-            console.log(response.data);
+            /*console.log(response.data);*/
             axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
-                console.log("Show Data Fetched ...");
-                console.log(question.data);
+                /*console.log("Show Data Fetched ...");
+                console.log(question.data);*/
 
                 this.setState({
                     question: question.data,
@@ -190,10 +244,11 @@ class ShowQuestion extends React.Component {
 
                                     <div className="d-flex flex-column vote-controls align-self-start pr-4">
                                         <Link className={"upvote"} to={""}>
-                                            <i className={"fas fa-caret-up fa-3x"} style={{textDecoration: 'none'}}></i>
+                                            <i className={"fas fa-caret-up fa-3x"}
+                                               style={{textDecoration: 'none'}}></i>
                                         </Link>
 
-                                        <span className="votes-count">1230</span>
+                                        <span className="votes-count">{this.state.question.votes}</span>
 
                                         <Link className={"downvote downvoted"} to={""}>
                                             <i className={"fas fa-caret-down fa-3x"}></i>
