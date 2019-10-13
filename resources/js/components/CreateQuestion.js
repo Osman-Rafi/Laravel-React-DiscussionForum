@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Link} from "react-router-dom";
 import * as axios from "axios";
-import { Redirect } from 'react-router';
+import {Redirect} from 'react-router';
+import CKEditor from "ckeditor4-react";
 
 class CreateQuestion extends React.Component {
 
@@ -20,6 +21,10 @@ class CreateQuestion extends React.Component {
     }
 
     handleBodyChange = (e) => {
+        //console.log(e.target.value);
+        console.log("onChange fired with event info: ", e);
+        var newContent = e.editor.getData();
+        console.log(newContent);
         this.setState({
             body: e.target.value
         });
@@ -89,9 +94,13 @@ class CreateQuestion extends React.Component {
 
                                     <div className="form-group">
                                         <label htmlFor="question-body">Explain Your Question :</label>
-                                        <textarea name={"body"} id={"question-body"} cols={40} rows={10}
+                                        {/*<textarea name={"body"} id={"question-body"} cols={40} rows={10}
                                                   className={"form-control"} onChange={this.handleBodyChange}
-                                                  value={this.state.body}></textarea>
+                                                  value={this.state.body}></textarea>*/}
+                                        <CKEditor name="body" id="question-body" cols={40} rows={10}
+                                                  className={"form-control"}
+                                                  onChange={({editor}) => this.setState({body: editor.getData()})}
+                                                  data={this.state.body}/>
                                     </div>
 
                                     <div className="form-group">
@@ -101,6 +110,7 @@ class CreateQuestion extends React.Component {
                                     </div>
 
                                 </form>
+
 
                             </div>
                         </div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import * as axios from "axios";
 import {Link} from "react-router-dom";
+import parse, {domToReact} from 'html-react-parser';
 
 // including moment js
 
@@ -314,6 +315,17 @@ class ShowQuestion extends React.Component {
 
     };
 
+
+    createMarkup() {
+        return {__html: this.state.question.body};
+    }
+
+
+    MyComponent() {
+        return <span dangerouslySetInnerHTML={this.createMarkup()}/>;
+    }
+
+
     render() {
         const redirectToReferrer = this.state.redirect;
 
@@ -381,7 +393,10 @@ class ShowQuestion extends React.Component {
 
                                     <div className="media-body">
                                         <p className="">
-                                            {this.state.question.body}
+
+                                            {this.MyComponent()}
+
+
                                         </p>
                                     </div>
                                 </div>
