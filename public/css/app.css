@@ -16580,30 +16580,37 @@ a:hover {
   font-size: 16px;
 }
 
-.vote-controls a {
+.vote-controls a,
+.vote-controls button {
   cursor: pointer;
-}
-
-.vote-controls a.off,
-.vote-controls a.off:hover {
-  color: #E0C879l;
+  color: gainsboro;
 }
 
 .vote-controls a.favourite.favourited,
-.vote-controls a.favourite.favourited:hover {
+.vote-controls a.favourite.favourited:hover,
+.vote-controls button.favourite.favourited,
+.vote-controls button.favourite.favourited:hover {
   color: #ffed4a;
 }
 
-.vote-controls a.upvoted {
+.vote-controls a.upvoted,
+.vote-controls button.upvoted {
   color: #7AC74F;
 }
 
-.vote-controls a.downvoted {
+.vote-controls a.downvoted,
+.vote-controls button.downvoted {
   color: #D62828;
 }
 
-.vote-controls a.answer-vote.accepted-ans {
+.vote-controls a.answer-vote.accepted-ans,
+.vote-controls button.answer-vote.accepted-ans {
   color: green;
+}
+
+.ans-vote,
+.ans-vote:hover {
+  color: #798071;
 }
 
 .ans-votes-count {

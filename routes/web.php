@@ -37,10 +37,14 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get("/editData/{id}", "QuestionsController@edit");
     Route::post("/updateData/{id}", "QuestionsController@update");
     Route::delete("/deleteData/{id}", "QuestionsController@destroy");
+    Route::post('/upvote-question', "QuestionsController@upvoteAnswer");
+    Route::post('/downvote-question', "QuestionsController@downvoteAnswer");
 
     /*Answer*/
     Route::post('/storeAnswer', "AnswersController@store");
     Route::post('/marked-as-best-answer', 'QuestionsController@best_answer');
+    Route::post('upvote-answer', "AnswersController@upvoteAnswer");
+    Route::post('downvote-answer', "AnswersController@downvoteAnswer");
 
 });
 

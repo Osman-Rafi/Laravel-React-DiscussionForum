@@ -88,4 +88,26 @@ class AnswersController extends Controller
     {
         //
     }
+
+    public function upvoteAnswer(Request $request)
+    {
+        $answer = Answer::find($request->ans_id);
+        $data = $answer->votes_count;
+        $data += 1;
+        $answer->votes_count = $data;
+        $answer->save();
+
+        return $answer->votes_count;
+    }
+
+    public function downvoteAnswer(Request $request)
+    {
+        $answer = Answer::find($request->ans_id);
+        $data = $answer->votes_count;
+        $data -= 1;
+        $answer->votes_count = $data;
+        $answer->save();
+
+        return $answer->votes_count;
+    }
 }

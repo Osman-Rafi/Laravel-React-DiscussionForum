@@ -69,13 +69,9 @@ a:hover {
     }
   }
 
-  a {
+  a,button {
     cursor: pointer;
-    //color: #B4654A;
-
-    &.off, &.off:hover {
-      color: #E0C879l;
-    }
+    color: gainsboro;
 
     &.favourite {
       &.favourited, &.favourited:hover {
@@ -98,7 +94,9 @@ a:hover {
     }
   }
 }
-
+.ans-vote,.ans-vote:hover{
+  color: #798071;
+}
 .ans-votes-count {
   font-size: 18px;
 }

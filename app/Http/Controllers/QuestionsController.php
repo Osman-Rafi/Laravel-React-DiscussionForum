@@ -64,7 +64,6 @@ class QuestionsController extends Controller
 
         return $question;
 
-
     }
 
     /**
@@ -121,5 +120,26 @@ class QuestionsController extends Controller
         $question->save();
         return $question->best_answer_id;
 
+    }
+
+    public function upvoteAnswer(Request $request)
+    {
+        $question = Question::find($request->question_id);
+        $data = $question->votes;
+        $data += 1;
+        $question->votes = $data;
+        $question->save();
+
+        return $data;
+    }
+    public function downvoteAnswer(Request $request)
+    {
+        $question = Question::find($request->question_id);
+        $data = $question->votes;
+        $data -= 1;
+        $question->votes = $data;
+        $question->save();
+
+        return $data;
     }
 }

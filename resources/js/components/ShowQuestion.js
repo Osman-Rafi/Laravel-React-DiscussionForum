@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import * as axios from "axios";
 import {Link} from "react-router-dom";
-import Redirect from "react-router-dom/es/Redirect";
 
 // including moment js
 
@@ -32,26 +31,12 @@ class ShowQuestion extends React.Component {
                 answers: question.data.answers
 
             });
-            /*console.log(this.state);*/
+            console.log(this.state);
         }).catch(err => {
             console.log(err);
         });
     }
 
-    reloadPage = () => {
-        axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
-
-            this.setState({
-                question: question.data,
-                question_id: question.data.id,
-                answers: question.data.answers
-
-            });
-            /*console.log(this.state);*/
-        }).catch(err => {
-            console.log(err);
-        });
-    }
 
     //select best answer
 
@@ -69,8 +54,8 @@ class ShowQuestion extends React.Component {
             }
         }).then(response => {
             axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
-               /* console.log("Show Data Fetched ...");
-                console.log(question.data);*/
+                /* console.log("Show Data Fetched ...");
+                 console.log(question.data);*/
 
                 this.setState({
                     question: question.data,
@@ -88,6 +73,134 @@ class ShowQuestion extends React.Component {
 
     }
 
+    //make answer upvote
+
+    upvoteAnswer = (e, id) => {
+        let ans = {
+            ans_id: id
+        }
+        //console.log(ans);
+        axios.post("http://localhost:8000/ajax/upvote-answer", ans, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(response => {
+            axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+                /*console.log("Show Data Fetched ...");
+                console.log(response.data);*/
+
+                this.setState({
+                    question: question.data,
+                    answers: question.data.answers,
+                    answer: ''
+
+                })
+                ;
+
+            }).catch(err => {
+                console.log(err);
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    //make answer downvote
+
+    downvoteAnswer = (e, id) => {
+        let ans = {
+            ans_id: id
+        }
+        //console.log(ans);
+        axios.post("http://localhost:8000/ajax/downvote-answer", ans, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(response => {
+            axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+                /*console.log("Show Data Fetched ...");
+                console.log(response.data);*/
+
+                this.setState({
+                    question: question.data,
+                    answers: question.data.answers,
+                    answer: ''
+
+                })
+                ;
+
+            }).catch(err => {
+                console.log(err);
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    //make question upvote
+
+    upvoteQuestion = (e, id) => {
+
+        let ques = {
+            question_id: this.props.match.params.id,
+        };
+        //console.log(ques);
+        axios.post("http://localhost:8000/ajax/upvote-question", ques, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(response => {
+            axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+                /*console.log("Show Data Fetched ...");
+                console.log(question.data);*/
+
+                this.setState({
+                    question: question.data,
+                    question_id: question.data.id,
+                    answers: question.data.answers
+
+                });
+                console.log(this.state);
+            }).catch(err => {
+                console.log(err);
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    // make question downvote
+
+    downvoteQuestion = (e, id) => {
+
+        let ques = {
+            question_id: this.props.match.params.id,
+        };
+        //console.log(ques);
+        axios.post("http://localhost:8000/ajax/downvote-question", ques, {
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        }).then(response => {
+            axios.get(`http://localhost:8000/ajax/showData/${this.props.match.params.id}`).then(question => {
+                /*console.log("Show Data Fetched ...");
+                console.log(question.data);*/
+
+                this.setState({
+                    question: question.data,
+                    question_id: question.data.id,
+                    answers: question.data.answers
+
+                });
+                console.log(this.state);
+            }).catch(err => {
+                console.log(err);
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
     // fetch all answers
 
     showAnswers = () => {
@@ -103,19 +216,22 @@ class ShowQuestion extends React.Component {
                     <div className="media px-3">
 
                         <div className="d-flex flex-column answer-vote align-self-start pr-4">
-                            <Link className={"upvote"} to={""}>
+
+
+                            <button className={"ans-vote upvote btn btn-link"}
+                                    onClick={(e) => this.upvoteAnswer(e, question.id)}>
                                 <i className={"fas fa-caret-up fa-3x"} style={{textDecoration: 'none'}}></i>
-                            </Link>
+                            </button>
 
-                            <span className="ans-votes-count pl-1">{question.votes_count}</span>
+                            <span className="ans-votes-count pl-4">{question.votes_count}</span>
 
-                            <Link className={"downvote downvoted"} to={""}>
+                            <button className={"ans-vote downvote downvoted btn btn-link"}
+                                    onClick={(e) => this.downvoteAnswer(e, question.id)}>
                                 <i className={"fas fa-caret-down fa-3x"}></i>
-                            </Link>
+                            </button>
 
                             <button
                                 className={"py-2 btn btn-link " + (question.id === this.state.question.best_answer_id ? "accepted-ans" : "not-accepted-ans")}
-                                to={""}
                                 onClick={(e) => this.selectBestAnswer(e, question.id)}>
                                 <i className={"far fa-check-circle fa-2x"}></i>
                             </button>
@@ -243,16 +359,18 @@ class ShowQuestion extends React.Component {
                                 <div className="media">
 
                                     <div className="d-flex flex-column vote-controls align-self-start pr-4">
-                                        <Link className={"upvote"} to={""}>
+                                        <button className={"btn btn-link upvote"}
+                                                onClick={(e) => this.upvoteQuestion(e, this.state.question.id)}>
                                             <i className={"fas fa-caret-up fa-3x"}
                                                style={{textDecoration: 'none'}}></i>
-                                        </Link>
+                                        </button>
 
-                                        <span className="votes-count">{this.state.question.votes}</span>
+                                        <span className="votes-count pl-3">{this.state.question.votes}</span>
 
-                                        <Link className={"downvote downvoted"} to={""}>
+                                        <button className={"btn btn-link downvote downvoted"}
+                                                onClick={(e) => this.downvoteQuestion(e, this.state.question.id)}>
                                             <i className={"fas fa-caret-down fa-3x"}></i>
-                                        </Link>
+                                        </button>
 
                                         <Link className={"favourite favourited"} to={""}>
                                             <i className={"fas fa-star fa-2x"}></i>
@@ -274,9 +392,6 @@ class ShowQuestion extends React.Component {
                     </div>
 
                     <div className="col-md-10 mb-5">
-
-                        {/*Show all Answers*/}
-
                         {this.state.question.answers ?
                             this.showAnswers() : ""
                         }
