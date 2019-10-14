@@ -19,8 +19,8 @@ class Index extends React.Component {
 
     componentDidMount() {
         axios.get("http://localhost:8000/ajax/getData").then(question => {
-            /*console.log("Data Fetched ...");
-            console.log(question.data);*/
+            console.log("Data Fetched ...");
+            console.log(question.data);
 
             this.setState({
                 questions: question.data,

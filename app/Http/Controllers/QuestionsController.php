@@ -17,7 +17,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::with("user")->get();
+        $questions = Question::with("user")->latest()->get();
         return $questions;
     }
 

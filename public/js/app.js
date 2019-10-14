@@ -90886,8 +90886,9 @@ function (_React$Component) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_3__["get"]("http://localhost:8000/ajax/getData").then(function (question) {
-        /*console.log("Data Fetched ...");
-        console.log(question.data);*/
+        console.log("Data Fetched ...");
+        console.log(question.data);
+
         _this2.setState({
           questions: question.data,
           answers: question.data
