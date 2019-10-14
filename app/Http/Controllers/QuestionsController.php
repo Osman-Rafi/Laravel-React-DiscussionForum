@@ -17,8 +17,9 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::with("user")->latest()->get();
-        return $questions;
+        $questions_latest = Question::with("user")->latest()->get();
+        $question_popular = Question::with("user")->orderBy('votes', 'desc')->get();
+        return [$questions_latest, $question_popular];
     }
 
     /**
@@ -132,6 +133,7 @@ class QuestionsController extends Controller
 
         return $data;
     }
+
     public function downvoteAnswer(Request $request)
     {
         $question = Question::find($request->question_id);

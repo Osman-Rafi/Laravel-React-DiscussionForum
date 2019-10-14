@@ -90828,8 +90828,57 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "showQuestions", function () {
-      return _this.state.questions.map(function (question) {
+    _defineProperty(_assertThisInitialized(_this), "showLatestQuestions", function () {
+      return _this.state.questions[0].map(function (question) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "media",
+          key: question.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex flex-column counters"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "vote"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, question.votes, " votes")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "status " + (question.answers > 0 ? question.best_answer ? "answered-accepted" : "answered" : "unanswered")
+        }, question.answers, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "answer pl-1"
+        }, "answers")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "view font-weight-bold"
+        }, question.views, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "view"
+        }, "views"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "media-body"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex align-items-center"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/show-question/".concat(question.id),
+          className: "mt-0"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, question.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "ml-auto"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex flex-column"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/edit-question/".concat(question.id),
+          className: "btn btn-sm btn-outline-info my-3"
+        }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: function onClick() {
+            return _this.handleDelete(question.id);
+          },
+          className: "btn btn-sm btn-outline-danger"
+        }, "Delete")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "lead"
+        }, "Asked By", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "{question.user.url}",
+          className: "px-2"
+        }, question.user.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+          className: "text-muted px-1"
+        }, moment(question.created_at).fromNow())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "small"
+        }, question.body.substring(0, 250) + '...'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null)));
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "showPopularQuestions", function () {
+      return _this.state.questions[1].map(function (question) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "media",
           key: question.id
@@ -90886,9 +90935,8 @@ function (_React$Component) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_3__["get"]("http://localhost:8000/ajax/getData").then(function (question) {
-        console.log("Data Fetched ...");
-        console.log(question.data);
-
+        /* console.log("Data Fetched ...");
+         console.log(question.data);*/
         _this2.setState({
           questions: question.data,
           answers: question.data
@@ -90923,9 +90971,48 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/create-question",
         className: "btn btn-outline-secondary"
-      }, "Ask Question")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Ask Question")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "nav nav-tabs mt-3",
+        id: "myTab",
+        role: "tablist"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link active",
+        id: "home-tab",
+        "data-toggle": "tab",
+        href: "#latest",
+        role: "tab",
+        "aria-controls": "latest",
+        "aria-selected": "true"
+      }, "Latest")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "nav-link",
+        id: "profile-tab",
+        "data-toggle": "tab",
+        href: "#popular",
+        role: "tab",
+        "aria-controls": "popular",
+        "aria-selected": "false"
+      }, "Popular"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-content",
+        id: "myTabContent"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade show active",
+        id: "latest",
+        role: "tabpanel",
+        "aria-labelledby": "home-tab"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, this.showQuestions())))));
+      }, this.state.questions[0] ? this.showLatestQuestions() : "")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-pane fade",
+        id: "popular",
+        role: "tabpanel",
+        "aria-labelledby": "profile-tab"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, this.state.questions[1] ? this.showPopularQuestions() : "")))))));
     }
   }]);
 
